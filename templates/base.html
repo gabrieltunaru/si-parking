@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flask app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+  <body>
+      <div class="container centered">
+        <h1 class="logo">Status loc de parcare</h1>
+        <img src="{{ image_path }}" alt="image" class="image">
+        {% if spot.taken %}
+        <div class="busy display"></div>
+        {% else %}
+        <div class="free display"></div>
+        {% endif %}
+      </div>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

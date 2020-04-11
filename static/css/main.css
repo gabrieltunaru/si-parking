@@ -1,0 +1,24 @@
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color:blue;
+}
+
+.image {
+    padding-bottom: 25px;
+}
+
+.display {
+    width: 250px;
+    height: 400px;
+}
+
+.busy {
+    background: red;
+}
+
+.free {
+    background: green;
+}
