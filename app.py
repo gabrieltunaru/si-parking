@@ -6,10 +6,14 @@ UPLOAD_FOLDER='./static/assets'
 class Spot: #clasa ce detaliaza un loc de parcare, deocamdata are un singur camp care semnifica daca locul este ocupat sau nu
     def __init__(self,taken):
         self.taken=taken
+    def set_taken(self,taken):
+        self.taken=taken
+
+spot=Spot(False)
+
 
 @app.route('/') #ruta folosita pentru interfata web
 def hello():
-    spot=Spot(False)
     path=os.path.join(UPLOAD_FOLDER,'image.jpg')
     print(path)
     return render_template('base.html',spot=spot,image_path=path) #returneaza un template ce se schimba in fuctie de locul de parcare si imaginea primita
@@ -24,6 +28,17 @@ def addImage():
     path=os.path.join(UPLOAD_FOLDER,'image.jpg')
     file.save(path) #salvam imaginea pe disk
     print(path)
+    return "success"
+
+@app.route('/distance',methods=['GET','POST'])
+def setDistance():
+    data=request.get_json()
+    distance1=data['distance1']
+    distance2=data['distance2']
+    if(distance1<30 and distance2<30):
+        spot.set_taken(True)
+    else:
+        spot.set_taken(False)
     return "success"
 
 if __name__ == '__main__':
