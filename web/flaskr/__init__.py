@@ -1,11 +1,12 @@
 import os
 from flask import Flask, render_template, flash, request, redirect, url_for, Response
+import PIL
 from PIL import Image
 import sys
 import io
 
 app = Flask(__name__)
-UPLOAD_FOLDER = './flaskr/static/assets'
+UPLOAD_FOLDER = './static/assets'
 
 
 class Spot:  # clasa ce detaliaza un loc de parcare, deocamdata are un singur camp care semnifica daca locul este ocupat sau nu
@@ -43,16 +44,11 @@ def addImage():
 @app.route('/imageBMP', methods=['GET', 'POST'])
 def addBmpImage():
     file = request.data
-    # print(file)
-    try:
-        image = Image.open(io.BytesIO(file))
-        path = os.path.join(UPLOAD_FOLDER, 'image.jpg')
-        image.save(path)  # salvam imaginea pe disk
-        print(path)
-        return "success"
-    except Exception as e:
-        print(e)
-        return "nope",400
+    image = Image.open(io.BytesIO(file))
+    path = os.path.join(UPLOAD_FOLDER, 'image.jpg')
+    print(path)
+    image.save(path)  # salvam imaginea pe disk
+    return "success"
 
 
 @app.route('/distance', methods=['GET', 'POST'])
