@@ -4,9 +4,11 @@ import PIL
 from PIL import Image
 import sys
 import io
+from ml import check_photo
 
 app = Flask(__name__)
 UPLOAD_FOLDER = './static/assets'
+UPLOAD_FOLDER_SAVE = './flaskr/static/assets'
 
 
 class Spot:  # clasa ce detaliaza un loc de parcare, deocamdata are un singur camp care semnifica daca locul este ocupat sau nu
@@ -42,12 +44,12 @@ def addImage():
 
 # ruta folosita pentru upload de imagine
 @app.route('/imageBMP', methods=['GET', 'POST'])
-def addBmpImage():
+def addjpgImage():
     file = request.data
     image = Image.open(io.BytesIO(file))
-    path = os.path.join(UPLOAD_FOLDER, 'image.jpg')
-    print(path)
+    path = os.path.join(UPLOAD_FOLDER_SAVE, 'image.jpg')
     image.save(path)  # salvam imaginea pe disk
+    check_photo()
     return "success"
 
 
