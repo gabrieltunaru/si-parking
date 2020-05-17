@@ -4,7 +4,8 @@ import PIL
 from PIL import Image
 import sys
 import io
-from ml import check_photo
+# from ml import check_photo
+from datetime import datetime
 
 app = Flask(__name__)
 UPLOAD_FOLDER = './static/assets'
@@ -49,7 +50,9 @@ def addjpgImage():
     image = Image.open(io.BytesIO(file))
     path = os.path.join(UPLOAD_FOLDER_SAVE, 'image.jpg')
     image.save(path)  # salvam imaginea pe disk
-    check_photo()
+    spot.imageTime = datetime.now()
+    print(spot.imageTime)
+    # check_photo()
     return "success"
 
 
@@ -59,17 +62,20 @@ def setDistance():
     print("request data: %s" % data)
     try:
         distance1 = data['distance1']
+        spot.distance1 = distance1
         print("distance1: %s" % distance1)
         distance2 = data['distance2']
+        spot.distance2 = distance2
         print("distance2: %s" % distance2)
-        if(distance1 < 30 and distance2 < 30):
+        spot.distanceTime = datetime.now()
+        if(distance1 < 100 and distance2 < 100):
             spot.set_taken(True)
         else:
             spot.set_taken(False)
         return "success"
     except:
-        response="Invalid JSON format: " + str(data)
-        return response,400
+        response = "Invalid JSON format: " + str(data)
+        return response, 400
 
 
 if __name__ == '__main__':

@@ -1,25 +1,39 @@
 .centered {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color:blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: blue;
 }
 
 .image {
-    padding-bottom: 25px;
-    width: 400px;
+  padding-bottom: 25px;
+  width: 400px;
 }
 
 .display {
-    width: 250px;
-    height: 400px;
+  width: 400px;
+  height: 250px;
 }
 
 .busy {
-    background: red;
+  background: red;
 }
 
 .free {
-    background: green;
+  background: green;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  text-align: center;
+  border-collapse: collapse;
+  justify-content: center;
+}
+
+table {
+    width: 300px;
+    margin-bottom: 30px;
 }
