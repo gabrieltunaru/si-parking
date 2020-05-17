@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 
 image_generator = ImageDataGenerator(rescale=1./255)
-model = tf.keras.models.load_model('../ml/my_model.h5')
+model = tf.keras.models.load_model('./flaskr/static/ml/my_model.h5')
 PATH = os.path.join('./flaskr/static/assets','image.jpg')
 
 IMG_HEIGHT = 150

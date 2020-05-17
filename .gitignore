@@ -177,3 +177,4 @@ dmypy.json
 web/venv
 ml/*
 !ml/*.ipynb
+web/flaskr/static/ml
