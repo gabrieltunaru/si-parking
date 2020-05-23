@@ -4,9 +4,11 @@ import PIL
 from PIL import Image
 import sys
 import io
-# from ml import check_photo
+from ml import check_photo
 from datetime import datetime
+from PIL import ImageFile
 
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 app = Flask(__name__)
 UPLOAD_FOLDER = './static/assets'
 UPLOAD_FOLDER_SAVE = './flaskr/static/assets'
@@ -46,14 +48,21 @@ def addImage():
 # ruta folosita pentru upload de imagine
 @app.route('/imageBMP', methods=['GET', 'POST'])
 def addjpgImage():
-    file = request.data
-    image = Image.open(io.BytesIO(file))
-    path = os.path.join(UPLOAD_FOLDER_SAVE, 'image.jpg')
-    image.save(path)  # salvam imaginea pe disk
-    spot.imageTime = datetime.now()
-    print(spot.imageTime)
-    # check_photo()
-    return "success"
+    try:
+        file = request.data
+        image = Image.open(io.BytesIO(file))
+        path = os.path.join(UPLOAD_FOLDER_SAVE, 'image.jpg')
+        image.save(path)  # salvam imaginea pe disk
+        spot.imageTime = datetime.now()
+        print(spot.imageTime)
+        check_photo()
+        return "success"
+    except Exception as err:
+        f = open("./logs.txt", "a")
+        f.write(str(datetime.now()) + ": " + str(err)+ "\n")
+        f.close()
+        print(str(err))
+        return str(err), 500
 
 
 @app.route('/distance', methods=['GET', 'POST'])

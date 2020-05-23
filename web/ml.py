@@ -22,8 +22,8 @@ def check_photo():
 
 def evaluate(img):
     img = (np.expand_dims(img,0))
-    predictions_single = model.predict(img)
-    print(predictions_single)
+    preds = model.predict(img)
+    print(preds)
 
 def decode_img(img):
     img = tf.image.decode_jpeg(img,channels=3) #color images
